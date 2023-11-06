@@ -5,4 +5,13 @@ import lombok.Data;
 @Data
 public class PCResponse {
     private String text;
+    private String cpu;
+    private String gpu;
+    private String ram;
+    private String storage;
+    private String motherboard;
+    private String computerCase;
+    private String powerSupplyUnit;
+    private String cooling;
+    private String operatingSystem;
 }
