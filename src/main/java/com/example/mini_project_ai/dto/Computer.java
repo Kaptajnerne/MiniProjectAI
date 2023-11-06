@@ -1,12 +1,8 @@
-package com.example.mini_project_ai.dtos;
+package com.example.mini_project_ai.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class Computer {
     private String cpu;
     private String gpu;
@@ -15,4 +11,6 @@ public class Computer {
     private String motherboard;
     private String computerCase;
     private String powerSupplyUnit;
+    private String cooling;
+    private String operatingSystem;
 }
