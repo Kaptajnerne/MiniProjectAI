@@ -25,30 +25,35 @@ public class MyService {
     }
 
     public Mono<PCResponse> getPCRecommendations(String budget, String usage) {
-        String prompt = "Recommend PC components for a budget of $" + budget + " for " + usage + " usage.";
+        String prompt = "Recommend PC components for a budget of $" + budget + " for " + usage + " usage. " +
+                "I need a CPU, GPU, RAM, Storage, Motherboard, Case, Power Supply Unit, Cooling, and Operating System. " +
+                "Give the exact name of the component back as mentioned above. " +
+                "Formatting \"Component: model of component - price in dollars\". " +
+                "Always end with a dot.";
         PCRequest request = new PCRequest(prompt);
         return webClient.post()
                 .body(Mono.just(request), PCRequest.class)
                 .retrieve()
                 .bodyToMono(PCResponse.class)
-                .map(response -> {
-                    PCResponse pcResponse = new PCResponse();
-                    pcResponse.setText(response.getText());
-                    pcResponse.setCpu(extractRecommendation("CPU", response.getText()));
-                    pcResponse.setGpu(extractRecommendation("GPU", response.getText()));
-                    pcResponse.setRam(extractRecommendation("RAM", response.getText()));
-                    pcResponse.setStorage(extractRecommendation("Storage", response.getText()));
-                    pcResponse.setMotherboard(extractRecommendation("Motherboard", response.getText()));
-                    pcResponse.setComputerCase(extractRecommendation("Computer Case", response.getText()));
-                    pcResponse.setPowerSupplyUnit(extractRecommendation("Power Supply Unit", response.getText()));
-                    pcResponse.setCooling(extractRecommendation("Cooling", response.getText()));
-                    pcResponse.setOperatingSystem(extractRecommendation("Operating System", response.getText()));
-
-                    return pcResponse;
-                });
+                .map(this::mapResponseToPCResponse);
     }
 
-    //Extracts the response text from each component. Seems straight forward but is complicated
+    private PCResponse mapResponseToPCResponse(PCResponse response) {
+        PCResponse pcResponse = new PCResponse();
+        pcResponse.setText(response.getText());
+        pcResponse.setCpu(extractRecommendation("CPU ", response.getText()));
+        pcResponse.setGpu(extractRecommendation("GPU", response.getText()));
+        pcResponse.setRam(extractRecommendation("RAM", response.getText()));
+        pcResponse.setStorage(extractRecommendation("Storage", response.getText()));
+        pcResponse.setMotherboard(extractRecommendation("Motherboard", response.getText()));
+        pcResponse.setComputerCase(extractRecommendation("Case", response.getText()));
+        pcResponse.setPowerSupplyUnit(extractRecommendation("Power Supply Unit", response.getText()));
+        pcResponse.setCooling(extractRecommendation("Cooling", response.getText()));
+        pcResponse.setOperatingSystem(extractRecommendation("Operating System", response.getText()));
+        return pcResponse;
+    }
+
+    //Extracts the response text from each component. Seems straight forward but is kinda complicated
     private String extractRecommendation(String component, String responseText) {
         //We define a regular expression pattern based on the component parameter we receive.
         //Component is the name of the component (example: CPU, GPU etc.)
