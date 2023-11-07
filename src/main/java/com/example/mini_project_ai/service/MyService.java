@@ -14,12 +14,25 @@ import java.util.regex.Pattern;
 public class MyService {
     private final WebClient webClient;
 
-    @Value("${OPENAI_API_KEY}")
+    @Value("${chat.model}")
+    private String chatModel;
+
+    @Value("${openai.api.key}")
     private String apiKey;
 
+    @Value("${openai.api.url}")
+    private String apiUrl;
+
     public MyService() {
+        System.out.println("API Key: " + apiKey);
+        System.out.println("API URL: " + apiUrl);
+
+        if (apiUrl == null) {
+            throw new IllegalArgumentException("apiUrl is null");
+        }
+
         this.webClient = WebClient.builder()
-                .baseUrl("https://api.openai.com/v1/engines/davinci-codex/completions")
+                .baseUrl(apiUrl)
                 .defaultHeader("Authorization", "Bearer " + apiKey)
                 .build();
     }
