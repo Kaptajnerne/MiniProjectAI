@@ -17,7 +17,7 @@ public class EnumController {
     @Autowired
     private EnumService enumService;
 
-    @GetMapping("/genders")
+    @GetMapping("/formfactors")
     public ResponseEntity<List<String>> getAllFormFactors(){
         List<String> formFactors = enumService.getAllFormFactors();
         return new ResponseEntity<>(formFactors, HttpStatus.OK);
