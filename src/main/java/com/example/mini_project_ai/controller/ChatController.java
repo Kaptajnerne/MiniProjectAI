@@ -24,9 +24,7 @@ public class ChatController {
 
     @PostMapping
     public Mono<List<ChatResponse>> getChatResponse(@RequestBody ComputerRequirements computerRequirements) {
-        // Nu kan du bruge hele chatRequest i din logik.
-        Mono<List<ChatResponse>> res = chatService.fetchChatGPT(computerRequirements);
-        return res;
+        return chatService.fetchChatGPT(computerRequirements);
     }
 
 }

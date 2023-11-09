@@ -15,7 +15,6 @@ public class ComputerRequirements {
     private String primaryUsage;
     private String formFactor;
     private double budget;
-    private String popularity;
     private String other;
 }
 

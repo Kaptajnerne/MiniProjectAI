@@ -33,6 +33,4 @@ public class ChatService {
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<ChatResponse>>() {});
     }
-
 }
-
