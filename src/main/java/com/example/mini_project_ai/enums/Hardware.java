@@ -1,6 +1,6 @@
 package com.example.mini_project_ai.enums;
 
-public enum FormFactor {
+public enum Hardware {
     DESKTOP,
     LAPTOP
 }

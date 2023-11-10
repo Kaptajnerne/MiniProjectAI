@@ -19,7 +19,7 @@ public class EnumController {
 
     @GetMapping("/formfactors")
     public ResponseEntity<List<String>> getAllFormFactors(){
-        List<String> formFactors = enumService.getAllFormFactors();
+        List<String> formFactors = enumService.getAllHardware();
         return new ResponseEntity<>(formFactors, HttpStatus.OK);
     }
 

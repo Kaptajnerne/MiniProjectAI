@@ -21,7 +21,6 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-
     @PostMapping
     public Mono<List<ChatResponse>> getChatResponse(@RequestBody ComputerRequirements computerRequirements) {
         return chatService.fetchChatGPT(computerRequirements);

@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 public class ChatService {
 
-
     private final WebClient webClient;
 
     @Autowired
@@ -29,7 +28,7 @@ public class ChatService {
                 .post()
                 .uri("/chat")
                 .accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML)
-                .bodyValue(computerRequirements) // Send chatRequest as the request body.
+                .bodyValue(computerRequirements)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<ChatResponse>>() {});
     }
